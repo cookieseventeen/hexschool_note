@@ -1,0 +1,10 @@
+@import "base";
+@import "hamburgers/hamburgers"; // mixin animation 參考
+@import "include/normal"; // 常用基本的css 
+@import "bootstrap";
+@import "include/animation"; // mixin animation 參考
+
+body {
+    font-family: $default-font-family;
+    color: $main-color;
+}
