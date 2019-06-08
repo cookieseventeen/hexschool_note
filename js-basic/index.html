@@ -7,87 +7,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
+        <link rel="stylesheet" href="js/prism/prism.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/prism/prism.js"></script>
+    <title>基礎ＪＳ筆記</title>
 </head>
 
 <body>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>重訓紀錄</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">date:</span>
-                        </div>
-                        <input type="date" class="form-control" id="input-group-date">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">訓練名稱:</span>
-                        </div>
-                        <input type="text" class="form-control" id="inputGroup-training">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">重量:</span>
-                        </div>
-                        <input type="text" class="form-control" id="inputGroup-weight">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">組數:</span>
-                        </div>
-                        <input type="number" class="form-control" id="inputGroup-set">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="float-right">
-                        <button id="sent-btn" class="btn btn-primary" type="submit">登錄</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="container">
+    <h1>基礎ＪＳ筆記</h1>
+    <section class="chapter_section">
+        <h2>第一</h2>
         <div class="row">
-            <div class="col-md-12">
-                <table id="result_table" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">＃</th>
-                            <th scope="col">訓練日期</th>
-                            <th scope="col">訓練項目</th>
-                            <th scope="col">重量</th>
-                            <th scope="col">組數</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data_result">
-                        
-                    </tbody>
-                </table>
+            <div class="col-12">
+             <div class="description">
+                抓取元素的方式有好幾種：
+                <ul>
+                    <li class="justforclasstest">
+                        document.getElementById //用ＩＤ抓取
+                    </li>
+                    <li class="justforclasstest">
+                        document.getElementsByClassName('classname')[i] //有多個的時候像陣列般存取 
+                    </li>
+                    <li class="justforclasstest">
+                        document.querySelector
+                    </li>
+                    <li class="justforclasstest">
+                        document.querySelectorAll('classname')[i]//有多個的時候像陣列般存取 
+                    </li>
+                    <li>
+                        document.getElementsByName
+                    </li>
+                    <li>
+                        document.getElementsByTagName
+                    </li>
+                    <li>
+                        document.getElementsByTagNameNS
+                    </li>
+                </ul>
+             </div>
             </div>
         </div>
+<pre class="language-js">
+<code class="language-js"><script>document.getElementById('test-title').textContent='修改--第一課,如果像ＣＳＳ一樣抓取元素';</script></code>
+</pre>
+        <script>
+            document.getElementById('test-title').textContent='修改--第一課,如果像ＣＳＳ一樣抓取元素';
+        </script>
+    </section>
     </div>
-    <script src="js/all.js"></script>
+    
 </body>
 
 </html>
