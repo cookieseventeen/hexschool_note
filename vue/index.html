@@ -19,9 +19,6 @@
                 <h2>起手式介紹</h2>
                 <div id="app">
                     {{message}}
-                    {{message}}
-                    {{message}}
-                    {{message}}
                     <div class="box">
                         {{message}}
                     </div>
@@ -45,6 +42,60 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="gap">
+            &nbsp;
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>v-for 的用法 with v-on:click</h2>
+                <div id="v-formyfamily">
+                    <ul>
+                        <li v-for="members in myfamily" v-on:click="theage(members.themember,members.age)">
+                            <span>{{members.themember}}</span>
+                            <span>年齡：{{members.age}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Vue 的完整型態參考</h2>
+                <div class="description">
+                    參考連結：<a href="https://youtu.be/8O3teHziU_E?t=5792"
+                        target="_blank">https://youtu.be/8O3teHziU_E?t=5792</a><br>
+                    起始處有完整資料
+                </div>
+                #Quiz
+                <div id="quiz">
+                    <h2>My todolist</h2>
+                    <div class="wrap">
+                        <div class="form-group">
+                            <label for="addlist">Add list</label>
+                            {{message}}
+                            <input type="text" class="form-control" id="addlist" v-model="newtodoitem" @keyup.enter="addlist(newtodoitem)" placeholder="請輸入待辦事項">
+                        </div>
+                        <ol id="mytodo-list" class="list">
+                            <li v-for="todoitems in todoitem" >
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input  v-model="todoitems.completed" type="checkbox">{{todoitems.thetime}}-{{todoitems.content}}
+                                            </label>
+                                            -<a href="#" @click.prevent="delectlist(todoitems)">刪除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gap">
+            &nbsp;
         </div>
     </div>
 </body>
