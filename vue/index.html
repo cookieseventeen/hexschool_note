@@ -16,11 +16,23 @@
             font-weight: bold;
             text-align: center;
         }
+        .change_btn{
+            font-size: 24px;
+        }
+        .change_title{
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <div id="realtime"></div>
+
+    <div class="change_title">
+        <input id="change_title_input" type="text">
+        <a id="change_title_btn" class="change_btn" >改變</a>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -145,6 +157,11 @@
             var data = snapshot.val();
             console.log(data);
             document.getElementById('realtime').textContent=data;
+        });
+
+        document.getElementById('change_title_btn').addEventListener('click',function(){
+            var _thetitlechangevalue=document.getElementById('change_title_input').value;
+            firebasedb.ref("test").set(_thetitlechangevalue);
         });
     </script>
 
