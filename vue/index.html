@@ -10,9 +10,17 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <title>基礎Vue筆記</title>
+    <style>
+        #realtime{
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="realtime"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -102,6 +110,7 @@
         <div class="gap">
             &nbsp;
         </div>
+        
     </div>
 
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -116,6 +125,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-performance.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -128,25 +138,14 @@
             appId: "1:246151140434:web:48b833ac03de3e55"
         };
         // Initialize Firebase
+       
         firebase.initializeApp(firebaseConfig);
-
-        /*
-        const database = firebase.database();
-        database.ref("/chinese");
-        var path = "chinesee";
-        database.ref(`/$(path)`);
-        */
-        var otherProject = firebase.initializeApp(firebaseConfig, "other");
-
-        console.log(firebase.app().name); // "[DEFAULT]"
-        console.log(otherProject.name); // "otherProject"
-
-        // Use the shorthand notation to access the default project's Firebase services
-
-
-        // Use the otherProject variable to access the second project's Firebase services
-        var otherStorage = otherProject.storage();
-        var otherFirestore = otherProject.firestore();
+        var firebasedb = firebase.database();
+        firebasedb.ref("test").on('value', function (snapshot) {
+            var data = snapshot.val();
+            console.log(data);
+            document.getElementById('realtime').textContent=data;
+        });
     </script>
 
 
