@@ -87,3 +87,17 @@ function setdata(target,thetime,content){
     tododata.push({thetime:content});
     localStorage.setItem(target, JSON.stringify(tododata));
 }
+
+/*
+var vm= new Vue({
+    el: '#app', //掛載的元素
+    data:{},//綁定的資料
+    props:{},//接收外部資料的屬性
+    methods:{},//用來定義Ｖue 實體內使用的函數
+    watch:{},//用來監聽觀察Ｖue實體內資料的變動
+    completed:{},//自動為內部資料計算過後的屬性
+    template:"...",//提供實體編譯過後的樣板
+    components:{}//定義子元件
+});
+*/
+

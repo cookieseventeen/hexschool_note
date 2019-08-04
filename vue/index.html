@@ -74,22 +74,27 @@
                         <div class="form-group">
                             <label for="addlist">Add list</label>
                             {{message}}
-                            <input type="text" class="form-control" id="addlist" v-model="newtodoitem" @keyup.enter="addlist(newtodoitem)" placeholder="請輸入待辦事項">
+                            <input type="text" class="form-control" id="addlist" v-model="newtodoitem"
+                                @keyup.enter="addlist(newtodoitem)" placeholder="請輸入待辦事項">
                         </div>
                         <ol id="mytodo-list" class="list">
-                            <li v-for="todoitems in todoitem" >
+                            <li v-for="todoitems in todoitem">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkbox">
                                             <label>
-                                                <input  v-model="todoitems.completed" type="checkbox">{{todoitems.thetime}}-{{todoitems.content}}
+                                                <input v-model="todoitems.completed"
+                                                    type="checkbox">{{todoitems.thetime}}-{{todoitems.content}}
                                             </label>
                                             -<a href="#" @click.prevent="delectlist(todoitems)">刪除</a>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                        </ul>
+                        </ol>
+                        <pre>
+                            {{todoitem}}
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -98,6 +103,53 @@
             &nbsp;
         </div>
     </div>
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-performance.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyD5mArY-z7jkxYbaXNYzpkR2RbY5hJvDy4",
+            authDomain: "our-to-do-list-ce3b5.firebaseapp.com",
+            databaseURL: "https://our-to-do-list-ce3b5.firebaseio.com",
+            projectId: "our-to-do-list-ce3b5",
+            storageBucket: "our-to-do-list-ce3b5.appspot.com",
+            messagingSenderId: "246151140434",
+            appId: "1:246151140434:web:48b833ac03de3e55"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        /*
+        const database = firebase.database();
+        database.ref("/chinese");
+        var path = "chinesee";
+        database.ref(`/$(path)`);
+        */
+        var otherProject = firebase.initializeApp(firebaseConfig, "other");
+
+        console.log(firebase.app().name); // "[DEFAULT]"
+        console.log(otherProject.name); // "otherProject"
+
+        // Use the shorthand notation to access the default project's Firebase services
+
+
+        // Use the otherProject variable to access the second project's Firebase services
+        var otherStorage = otherProject.storage();
+        var otherFirestore = otherProject.firestore();
+    </script>
+
+
 </body>
 <script src="js/all.js"></script>
 
