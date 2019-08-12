@@ -26,6 +26,53 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <div id="vue_todolist">
+                        <h2>Vue todo list</h2>
+                        <div class="description">
+                                {{todotips}}
+                        </div>
+
+                        <div class="wrap">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="addlist">Add list</label>
+                                        <input type="text" class="form-control" id="addlist" v-model="todoinput"
+                                        @keyup.enter="addlist(todoinput)" placeholder="請輸入待辦事項">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label for="addlist">degree</label>
+                                    <input type="text" class="form-control" id="setdegree" v-model="degree" placeholder="請輸入待辦事項">
+                                </div>
+                            </div>
+                            <ol id="mytodo-list" class="list">
+                                <li v-for="todoitems in todoitem" >
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox">{{todoitems.content}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                            <pre>
+                                {{todoitem}}
+                            </pre>
+                            
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+
     <div class="gap"></div>
     <div id="realtime"></div>
     <div class="gap"></div>
@@ -154,9 +201,9 @@
        
         firebase.initializeApp(firebaseConfig);
         var firebasedb = firebase.database();
+        
         firebasedb.ref("test").on('value', function (snapshot) {
             var data = snapshot.val();
-            console.log(data);
             document.getElementById('realtime').textContent=data;
         });
 

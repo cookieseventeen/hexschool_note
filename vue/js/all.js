@@ -48,6 +48,7 @@ var vmodapp = new Vue({
 });
 
 
+
 var quiz = new Vue({
     el: '#quiz',
     data: {
@@ -88,6 +89,46 @@ function setdata(target,thetime,content){
     localStorage.setItem(target, JSON.stringify(tododata));
 }
 
+var firebasedb = firebase.database();
+var initdata;
+firebasedb.ref("tododata").on('value', function (datacontent) {
+    initdata = datacontent.val();
+});
+
+var vue_todolist= new Vue({
+    el: '#vue_todolist',
+    data:{
+        todotips:'記載所有todo list,請再輸入匡輸入你要記錄的todo內容,記得按下儲存按鈕.',
+        todoinput:'',
+        todoitem: '',
+        degree:'1',
+    },
+    methods:{
+        addlist: function (tododata) {
+            var time = (new Date()).valueOf();
+            var this_vue=this;
+
+        /*
+            ㄥ
+            this_vue.todoitem[time]={
+                    "content" : tododata,
+                    "degree" : this_vue.degree,
+                    "executor" : "Ben",
+                    "status" : "pending",
+                    "progress_rate" : "0%"
+                  };
+        */
+            // localStorage.setItem('todolocalStorage', JSON.stringify(this.todoitem));
+        },
+    },
+    mounted(){
+        var this_vue=this;
+        firebasedb.ref("tododata").on('value', function (datacontent) {
+            this_vue.todoitem = datacontent.val();
+        });
+
+    }
+});
 /*
 var vm= new Vue({
     el: '#app', //掛載的元素
@@ -100,4 +141,3 @@ var vm= new Vue({
     components:{}//定義子元件
 });
 */
-
