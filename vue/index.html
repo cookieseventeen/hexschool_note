@@ -11,15 +11,17 @@
     <link rel="stylesheet" href="css/main.css">
     <title>基礎Vue筆記</title>
     <style>
-        #realtime{
+        #realtime {
             font-size: 36px;
             font-weight: bold;
             text-align: center;
         }
-        .change_btn{
+
+        .change_btn {
             font-size: 24px;
         }
-        .change_title{
+
+        .change_title {
             text-align: center;
         }
     </style>
@@ -29,56 +31,58 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                    <div id="vue_todolist">
-                        <h2>Vue todo list</h2>
-                        <div class="description">
-                                {{todotips}}
-                        </div>
+                <div id="vue_todolist">
+                    <h2>Vue todo list</h2>
+                    <div class="description">
+                        {{todotips}}
+                    </div>
 
-                        <div class="wrap">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="addlist">Add list</label>
-                                        <input type="text" class="form-control" id="addlist" v-model="todoinput"
+                    <div class="wrap">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label for="addlist">degree</label>
+                                <input type="text" class="form-control" id="setdegree" v-model="degree"
+                                    placeholder="請輸入待辦事項">
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="addlist">Add list</label>
+                                    <input type="text" class="form-control" id="addlist" v-model="todoinput"
                                         @keyup.enter="addlist(todoinput)" placeholder="請輸入待辦事項">
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <label for="addlist">degree</label>
-                                    <input type="text" class="form-control" id="setdegree" v-model="degree" placeholder="請輸入待辦事項">
                                 </div>
                             </div>
-                            <ol id="mytodo-list" class="list">
-                                <li v-for="todoitems in todoitem" >
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">{{todoitems.content}}-{{todoitems.degree}}
-                                                </label>
-                                            </div>
+
+                        </div>
+                        <ol id="mytodo-list" class="list">
+                            <li v-for="todoitems in todoitem">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">{{todoitems.content}}-{{todoitems.degree}}
+                                            </label>
                                         </div>
                                     </div>
-                                </li>
-                            </ol>
-                            <pre>
+                                </div>
+                            </li>
+                        </ol>
+                        <pre>
                                 {{todoitem}}
                             </pre>
-                            
-                        </div>
+
                     </div>
+                </div>
             </div>
         </div>
     </div>
-    
+
 
     <div class="gap"></div>
     <div id="realtime"></div>
     <div class="gap"></div>
     <div class="change_title">
         <input id="change_title_input" type="text">
-        <a id="change_title_btn" class="change_btn" >改變</a>
+        <a id="change_title_btn" class="change_btn">改變</a>
     </div>
 
     <div class="container">
@@ -170,7 +174,7 @@
         <div class="gap">
             &nbsp;
         </div>
-        
+
     </div>
 
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -198,17 +202,17 @@
             appId: "1:246151140434:web:48b833ac03de3e55"
         };
         // Initialize Firebase
-       
+
         firebase.initializeApp(firebaseConfig);
         var firebasedb = firebase.database();
-        
+
         firebasedb.ref("test").on('value', function (snapshot) {
             var data = snapshot.val();
-            document.getElementById('realtime').textContent=data;
+            document.getElementById('realtime').textContent = data;
         });
 
-        document.getElementById('change_title_btn').addEventListener('click',function(){
-            var _thetitlechangevalue=document.getElementById('change_title_input').value;
+        document.getElementById('change_title_btn').addEventListener('click', function () {
+            var _thetitlechangevalue = document.getElementById('change_title_input').value;
             firebasedb.ref("test").set(_thetitlechangevalue);
         });
     </script>
