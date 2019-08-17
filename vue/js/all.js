@@ -54,38 +54,40 @@ var quiz = new Vue({
     data: {
         message: 'hello world',
         newtodoitem: '',
-        todoitem: JSON.parse(localStorage.getItem('todolocalStorage'))||[]
+        todoitem: JSON.parse(localStorage.getItem('todolocalStorage')) || []
     },
     methods: {
         addlist: function (tododata) {
             let time = (new Date()).valueOf();
-            let localStoragetododata=localStorage.getItem('todolocalStorage');
+            let localStoragetododata = localStorage.getItem('todolocalStorage');
             this.todoitem.push({
-                thetime:time,
+                thetime: time,
                 content: tododata,
-                completed:false,
+                completed: false,
             });
             localStorage.setItem('todolocalStorage', JSON.stringify(this.todoitem));
         },
-        delectlist:function(target){
-           
-            this.todoitem.splice(this.todoitem.indexOf(target),1);
+        delectlist: function (target) {
+
+            this.todoitem.splice(this.todoitem.indexOf(target), 1);
 
             localStorage.setItem('todolocalStorage', JSON.stringify(this.todoitem));
         }
     }
 })
 
-function getdata(target){
-    if(localStorage.getItem(target)){
+function getdata(target) {
+    if (localStorage.getItem(target)) {
         console.log(JSON.parse(localStorage.getItem(target)));
         return JSON.parse(localStorage.getItem(target));
     }
 }
 
-function setdata(target,thetime,content){
-    let tododata=JSON.stringify(localStorage.getItem(target))||[];
-    tododata.push({thetime:content});
+function setdata(target, thetime, content) {
+    let tododata = JSON.stringify(localStorage.getItem(target)) || [];
+    tododata.push({
+        thetime: content
+    });
     localStorage.setItem(target, JSON.stringify(tododata));
 }
 
@@ -95,34 +97,44 @@ firebasedb.ref("tododata").on('value', function (datacontent) {
     initdata = datacontent.val();
 });
 
-var vue_todolist= new Vue({
+var vue_todolist = new Vue({
     el: '#vue_todolist',
-    data:{
-        todotips:'記載所有todo list,請再輸入匡輸入你要記錄的todo內容,記得按下儲存按鈕.',
-        todoinput:'',
-        todoitem: '',
-        degree:'1',
+    data: {
+        todotips: '記載所有todo list,請再輸入匡輸入你要記錄的todo內容,記得按下儲存按鈕.',
+        todoinput: '',
+        todoitem: initdata,
+        degree: '1',
     },
-    methods:{
+    methods: {
         addlist: function (tododata) {
             var time = (new Date()).valueOf();
-            var this_vue=this;
 
-        /*
-            ㄥ
-            this_vue.todoitem[time]={
-                    "content" : tododata,
-                    "degree" : this_vue.degree,
-                    "executor" : "Ben",
-                    "status" : "pending",
-                    "progress_rate" : "0%"
-                  };
-        */
+            var data = {
+                "time": time,
+                "content": this.todoinput,
+                "degree": this.degree,
+                "executor": "Ben",
+                "progress_rate": "77%",
+                "status": "pause"
+
+            }
+
+            firebasedb.ref("tododata").push(data);
+            /*
+                
+                this_vue.todoitem[time]={
+                        "content" : tododata,
+                        "degree" : this_vue.degree,
+                        "executor" : "Ben",
+                        "status" : "pending",
+                        "progress_rate" : "0%"
+                      };
+            */
             // localStorage.setItem('todolocalStorage', JSON.stringify(this.todoitem));
         },
     },
-    mounted(){
-        var this_vue=this;
+    mounted() {
+        var this_vue = this;
         firebasedb.ref("tododata").on('value', function (datacontent) {
             this_vue.todoitem = datacontent.val();
         });
