@@ -97,6 +97,7 @@ firebasedb.ref("tododata").on('value', function (datacontent) {
     initdata = datacontent.val();
 });
 
+
 var vue_todolist = new Vue({
     el: '#vue_todolist',
     data: {
@@ -120,6 +121,7 @@ var vue_todolist = new Vue({
             }
 
             firebasedb.ref("tododata").push(data);
+            console.log(data);
             /*
                 
                 this_vue.todoitem[time]={
