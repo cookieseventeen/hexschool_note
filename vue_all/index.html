@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <title>基礎Vue筆記</title>
+    <style>
+        #realtime {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .change_btn {
+            font-size: 24px;
+        }
+
+        .change_title {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="vue_todolist">
+                    <h2>Vue todo list</h2>
+                    <div class="description">
+                        {{todotips}}
+                    </div>
+
+                    <div class="wrap">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label for="addlist">degree</label>
+                                <input type="text" class="form-control" id="setdegree" v-model="degree"
+                                    placeholder="請輸入待辦事項">
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="addlist">Add list</label>
+                                    <input type="text" class="form-control" id="addlist" v-model="todoinput"
+                                        @keyup.enter="addlist(todoinput)" placeholder="請輸入待辦事項">
+                                </div>
+                            </div>
+
+                        </div>
+                        <ol id="mytodo-list" class="list">
+                            <li v-for="todoitems in todoitem">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">{{todoitems.content}}-{{todoitems.degree}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                        <pre>
+                                {{todoitem}}
+                            </pre>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="gap"></div>
+    <div id="realtime"></div>
+    <div class="gap"></div>
+    <div class="change_title">
+        <input id="change_title_input" type="text">
+        <a id="change_title_btn" class="change_btn">改變</a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>起手式介紹</h2>
+                <div id="app">
+                    {{message}}
+                    <div class="box">
+                        {{message}}
+                    </div>
+                    <div class="box2">
+                        {{messagetow}}
+                    </div>
+                    <div class="fifty_off">
+                        {{money*0.5}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gap">&nbsp;</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>V-Model</h2>
+                <div id="vmodapp">
+                    <input type="text" v-model="message">
+                    <div class="connet-text">
+                        {{message}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gap">
+            &nbsp;
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>v-for 的用法 with v-on:click</h2>
+                <div id="v-formyfamily">
+                    <ul>
+                        <li v-for="members in myfamily" v-on:click="theage(members.themember,members.age)">
+                            <span>{{members.themember}}</span>
+                            <span>年齡：{{members.age}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Vue 的完整型態參考</h2>
+                <div class="description">
+                    參考連結：<a href="https://youtu.be/8O3teHziU_E?t=5792"
+                        target="_blank">https://youtu.be/8O3teHziU_E?t=5792</a><br>
+                    起始處有完整資料
+                </div>
+                #Quiz
+                <div id="quiz">
+                    <h2>My todolist</h2>
+                    <div class="wrap">
+                        <div class="form-group">
+                            <label for="addlist">Add list</label>
+                            {{message}}
+                            <input type="text" class="form-control" id="addlist" v-model="newtodoitem"
+                                @keyup.enter="addlist(newtodoitem)" placeholder="請輸入待辦事項">
+                        </div>
+                        <ol id="mytodo-list" class="list">
+                            <li v-for="todoitems in todoitem">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input v-model="todoitems.completed"
+                                                    type="checkbox">{{todoitems.thetime}}-{{todoitems.content}}
+                                            </label>
+                                            -<a href="#" @click.prevent="delectlist(todoitems)">刪除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                        <pre>
+                            {{todoitem}}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gap">
+            &nbsp;
+        </div>
+
+    </div>
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-performance.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyD5mArY-z7jkxYbaXNYzpkR2RbY5hJvDy4",
+            authDomain: "our-to-do-list-ce3b5.firebaseapp.com",
+            databaseURL: "https://our-to-do-list-ce3b5.firebaseio.com",
+            projectId: "our-to-do-list-ce3b5",
+            storageBucket: "our-to-do-list-ce3b5.appspot.com",
+            messagingSenderId: "246151140434",
+            appId: "1:246151140434:web:48b833ac03de3e55"
+        };
+        // Initialize Firebase
+
+        firebase.initializeApp(firebaseConfig);
+        var firebasedb = firebase.database();
+
+        firebasedb.ref("test").on('value', function (snapshot) {
+            var data = snapshot.val();
+            document.getElementById('realtime').textContent = data;
+        });
+
+        document.getElementById('change_title_btn').addEventListener('click', function () {
+            var _thetitlechangevalue = document.getElementById('change_title_input').value;
+            firebasedb.ref("test").set(_thetitlechangevalue);
+        });
+    </script>
+
+
+</body>
+<script src="js/all.js"></script>
+
+</html>
