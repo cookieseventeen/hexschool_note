@@ -28,6 +28,9 @@
 </head>
 
 <body>
+    <!--
+        可以再為這個表單增加選擇狀態過濾資料的功能  2-18 有完整的介紹 特別是select radio checkbox
+    -->
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -35,8 +38,17 @@
                     <h2>Vue todo list</h2>
                     <div class="description">
                         {{todotips}}
+                        <div class="hidden">
+                                {{ todotips.split('').reverse().join('') }} 
+                                <!--表達式也可以內建在 鬍子模式裡面-->
+                                
+                        </div>
+                        <div class="using_computed">
+                        <!--使用computed 來做反轉字串的範例-->
+                            {{reversetext}}
+                        </div>
                     </div>
-
+                    
                     <div class="wrap">
                         <div class="row">
                             <div class="col-xs-3">
@@ -45,6 +57,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <div class="input-group">
+                                    <!--v-model 同步值-->
                                     <input type="text" class="form-control" id="addlist" v-model="todoinput"
                                         @keyup.enter="addlist(todoinput)" placeholder="請輸入待辦事項">
                                         <span class="input-group-btn">
@@ -75,6 +88,12 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div id="counter_demo" class="component_demo">
+            <counter-component></counter-component>
+            <counter-component></counter-component>
     </div>
     
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
