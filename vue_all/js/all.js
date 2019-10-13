@@ -1,3 +1,16 @@
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyD5mArY-z7jkxYbaXNYzpkR2RbY5hJvDy4",
+    authDomain: "our-to-do-list-ce3b5.firebaseapp.com",
+    databaseURL: "https://our-to-do-list-ce3b5.firebaseio.com",
+    projectId: "our-to-do-list-ce3b5",
+    storageBucket: "our-to-do-list-ce3b5.appspot.com",
+    messagingSenderId: "246151140434",
+    appId: "1:246151140434:web:48b833ac03de3e55"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 var firebasedb = firebase.database();
 var initdata;
 firebasedb.ref("tododata").on('value', function (datacontent) {
