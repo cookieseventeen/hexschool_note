@@ -13,10 +13,11 @@ firebase.initializeApp(firebaseConfig);
 
 var firebasedb = firebase.database();
 var initdata;
-firebasedb.ref("tododata").on('value', function (datacontent) {
-    initdata = datacontent.val();
-});
-
+firebasedb
+    .ref("tododata")
+    .on('value', function (datacontent) {
+        initdata = datacontent.val();
+    });
 
 var vue_todolist = new Vue({
     el: '#vue_todolist',
@@ -24,9 +25,11 @@ var vue_todolist = new Vue({
         todotips: '記載所有todo list,請再輸入匡輸入你要記錄的todo內容,記得按下儲存按鈕.',
         todoinput: '',
         todoitem: initdata,
+        resultoutput:'',
         degree: '1',
+        executor:'Ben'
     },
-    methods: {
+    methods: { //用來定義Ｖue 實體內使用的函數
         addlist: function (tododata) {
             var time = (new Date()).valueOf();
 
@@ -34,21 +37,30 @@ var vue_todolist = new Vue({
                 "time": time,
                 "content": this.todoinput,
                 "degree": this.degree,
-                "executor": "Ben",
+                "executor": this.executor,
                 "progress_rate": "77%",
                 "status": "pause"
-
             }
 
-            firebasedb.ref("tododata").push(data);
+            firebasedb
+                .ref("tododata")
+                .push(data);
             console.log(data);
         },
-    },
-    mounted() {
-        var this_vue = this;
-        firebasedb.ref("tododata").on('value', function (datacontent) {
-            this_vue.todoitem = datacontent.val();
-        });
+        delete_target: function (target) {
+            var delete_target = target;
 
+            firebasedb.ref("tododata/"+delete_target).remove();
+            console.log(delete_target);
+
+        }
+    },
+    mounted() { //初始執行的程式
+        var this_vue = this;
+        firebasedb
+            .ref("tododata")
+            .on('value', function (datacontent) {
+                this_vue.todoitem = datacontent.val();
+            });
     }
 });

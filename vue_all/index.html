@@ -40,27 +40,28 @@
                     <div class="wrap">
                         <div class="row">
                             <div class="col-xs-3">
-                                <label for="addlist">degree</label>
                                 <input type="text" class="form-control" id="setdegree" v-model="degree"
                                     placeholder="請輸入待辦事項">
                             </div>
                             <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label for="addlist">Add list</label>
+                                <div class="input-group">
                                     <input type="text" class="form-control" id="addlist" v-model="todoinput"
                                         @keyup.enter="addlist(todoinput)" placeholder="請輸入待辦事項">
+                                        <span class="input-group-btn">
+                                                <button v-on:click="addlist(todoinput)" class="btn btn-default" type="button">Go!</button>
+                                              </span>
                                 </div>
                             </div>
-
                         </div>
                         <ol id="mytodo-list" class="list">
-                            <li v-for="todoitems in todoitem">
+                            <li v-for="(todoitems,key,index) in todoitem">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox">{{todoitems.content}}-{{todoitems.degree}}
+                                                <input type="checkbox">{{todoitems.content}}-{{todoitems.degree}}-{{index}}-{{key}}
                                             </label>
+                                            <a v-on:click="delete_target(key)" :data-id="index" :data-item="key" >刪除</a>
                                         </div>
                                     </div>
                                 </div>
