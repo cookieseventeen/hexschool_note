@@ -1,116 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    <link rel="stylesheet" href="css/main.css">
-    <title>基礎Vue筆記</title>
-    <style>
-        #realtime {
-            font-size: 36px;
-            font-weight: bold;
-            text-align: center;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+        <script
+            defer="defer"
+            src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
+            integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+            crossorigin="anonymous"></script>
+        <script
+            defer="defer"
+            src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js"
+            integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif"
+            crossorigin="anonymous"></script>
+        <script
+            defer="defer"
+            src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
+            integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <!-- <link rel="stylesheet" href="css/main.css"> -->
+        <title>基礎Vue筆記</title>
+        <style>
+            #realtime {
+                font-size: 36px;
+                font-weight: bold;
+                text-align: center;
+            }
 
-        .change_btn {
-            font-size: 24px;
-        }
+            .change_btn {
+                font-size: 24px;
+            }
 
-        .change_title {
-            text-align: center;
-        }
-    </style>
-</head>
+            .change_title {
+                text-align: center;
+            }
+        </style>
+    </head>
 
-<body>
-    <!--
-        可以再為這個表單增加選擇狀態過濾資料的功能  2-18 有完整的介紹 特別是select radio checkbox
-    -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="vue_todolist">
-                    <h2>Vue todo list</h2>
-                    <div class="description">
-                        {{todotips}}
-                        <div class="hidden">
-                                {{ todotips.split('').reverse().join('') }} 
-                                <!--表達式也可以內建在 鬍子模式裡面-->
-                                
-                        </div>
-                        <div class="using_computed">
-                        <!--使用computed 來做反轉字串的範例-->
-                            {{reversetext}}
-                        </div>
+    <body>
+        <!-- 可以再為這個表單增加選擇狀態過濾資料的功能 2-18 有完整的介紹 特別是select radio checkbox -->
+        <div class="container">
+            <br>
+            <h1>Todo list demo</h1>
+            <br>
+            <br>
+
+            <div id="vue_todolist">
+                <div class="description">
+                    {{todotips}}
+                    <div class="hidden" style="display: none;">
+                        {{ todotips.split('').reverse().join('') }}
+                        <!--表達式也可以內建在 鬍子模式裡面-->
+
                     </div>
-                    
-                    <div class="wrap">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <input type="text" class="form-control" id="setdegree" v-model="degree"
-                                    placeholder="請輸入待辦事項">
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="input-group">
-                                    <!--v-model 同步值-->
-                                    <input type="text" class="form-control" id="addlist" v-model="todoinput"
-                                        @keyup.enter="addlist(todoinput)" placeholder="請輸入待辦事項">
-                                        <span class="input-group-btn">
-                                                <button v-on:click="addlist(todoinput)" class="btn btn-default" type="button">Go!</button>
-                                              </span>
-                                </div>
-                            </div>
-                        </div>
-                        <ol id="mytodo-list" class="list">
-                            <li v-for="(todoitems,key,index) in todoitem">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox">{{todoitems.content}}-{{todoitems.degree}}-{{index}}-{{key}}
-                                            </label>
-                                            <a v-on:click="delete_target(key)" :data-id="index" :data-item="key" >刪除</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ol>
-                        <pre>
-                                {{todoitem}}
-                            </pre>
-
+                    <div class="using_computed">
+                        <!--使用computed 來做反轉字串的範例-->
+                        {{reversetext}}
                     </div>
                 </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">待辦事項</span>
+                    </div>
+                    <input style="display: none;"
+                        type="text"
+                        class="form-control"
+                        id="setdegree"
+                        v-model="degree"
+                        placeholder="請輸入待辦事項">
+                    <input
+                        type="text"
+                        class="form-control"
+                        v-model="todoinput"
+                        @keyup.enter="addlist(todoinput)"
+                        placeholder="準備要做的任務">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" v-on:click="addlist(todoinput)" type="button">新增</button>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link"  :class="{'active': listfilter == 'all'}" @click="listfilter = 'all'" href="#">全部</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " :class="{'active': listfilter == 'active'}" @click="listfilter = 'active'" href="#">進行中</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" :class="{'active': listfilter == 'complated'}" @click="listfilter = 'complated'" href="#">已完成</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="list-group list-group-flush text-left">
+                        
+                        <li class="list-group-item" v-for="(todoitems,key,index) in filtertodo">
+                            <div class="d-flex" >
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" v-model="todoitems.complated" v-on:click="complated_target()" :id="key">
+                                    <label class="form-check-label" :class="{'completed':todoitems.complated}" v-on:click="complated_target()" :for="key">
+                                            {{todoitems.content}}                                       
+                                    </label>
+                                </div>
+                                 
+                                <button
+                                    type="button"
+                                    class="close ml-auto"
+                                    aria-label="Close"
+                                    v-on:click="delete_target(key)"
+                                    :data-id="index"
+                                    :data-item="key">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                
+                            </div>
+                        </li>
+                    
+                        <li class="list-group-item">
+                            <input type="text" class="form-control">
+                        </li>
+                    </ul>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span>還有 3 筆任務未完成</span>
+                        <a href="#">清除所有任務</a>
+                    </div>
+                </div>
+                <pre>
+                    {{todoitem}}
+                </pre>
             </div>
         </div>
-    </div>
 
-
-    <div id="counter_demo" class="component_demo">
+        <div id="counter_demo" class="component_demo">
             <counter-component></counter-component>
             <counter-component></counter-component>
-    </div>
-    
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+        </div>
 
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any
+        Firebase services -->
 
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-functions.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-performance.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
-    <script src="js/all.js"></script>
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed
+        first -->
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
 
-</body>
-
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-functions.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-performance.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+        <script src="js/all.js"></script>
+        <style>
+            .completed{
+                text-decoration: line-through;
+            }
+        </style>
+    </body>
 
 </html>
