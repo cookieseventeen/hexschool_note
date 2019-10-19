@@ -66,9 +66,17 @@ var vue_todolist = new Vue({
             console.log(delete_target);
 
         },
-        complated_target:function(){
+        complated_target:function(target){
             /*console.log(this.todoitem);*/
-            console.log('notthing');
+            //console.log(firebasedb.ref("tododata/" + target+'/complated'));
+            firebasedb.ref("tododata/" + target+'/complated').once('value', function(snapshot) {
+                console.log('status:'+snapshot.val());
+                if(snapshot.val()){
+                    firebasedb.ref("tododata/" + target+'/complated').set(false);
+                }else{
+                    firebasedb.ref("tododata/" + target+'/complated').set(true);
+                }
+            });
             
         }
     },
@@ -90,8 +98,31 @@ var vue_todolist = new Vue({
             return this.todoinput.split('').reverse().join('');
         },
         filtertodo:function(){
-            console.log('filtertodo');
-            return this.todoitem
+            
+            if(this.listfilter=='active'){
+                console.log('active');
+                var filter_data=new Object();
+                for(var item in this.todoitem) { 
+                    if(this.todoitem[item].complated==false){
+                        filter_data[item] = this.todoitem[item]; 
+                    }
+                }
+                console.log(filter_data);
+                return filter_data;
+            }else if(this.listfilter=='complated'){
+                console.log('complated');
+                var filter_data=new Object();
+                for(var item in this.todoitem) { 
+                    if(this.todoitem[item].complated==true){
+                        filter_data[item] = this.todoitem[item]; 
+                    }
+                }
+                console.log(filter_data);
+                return filter_data;
+            }else{
+                console.log('all');
+                return this.todoitem
+            }
         }
 
     },
