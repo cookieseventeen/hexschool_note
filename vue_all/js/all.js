@@ -29,12 +29,12 @@ var vue_todolist = new Vue({
         //resultoutput: '',
         degree: '1',
         executor: 'Ben',
-        listfilter:'all'
+        listfilter: 'all'
     },
     methods: { //用來定義Ｖue 實體內使用的函數
         addlist: function (tododata) {
 
-            if(!tododata.trim()){
+            if (!tododata.trim()) {
                 alert('請輸入內容');
                 return;
             }
@@ -55,7 +55,7 @@ var vue_todolist = new Vue({
                 .push(data);
             console.log(data);
 
-            this.todoinput='';
+            this.todoinput = '';
         },
         delete_target: function (target) {
             var delete_target = target;
@@ -66,18 +66,34 @@ var vue_todolist = new Vue({
             console.log(delete_target);
 
         },
-        complated_target:function(target){
+        complated_target: function (target) {
+            console.log(target);
             /*console.log(this.todoitem);*/
             //console.log(firebasedb.ref("tododata/" + target+'/complated'));
-            firebasedb.ref("tododata/" + target+'/complated').once('value', function(snapshot) {
-                console.log('status:'+snapshot.val());
-                if(snapshot.val()){
-                    firebasedb.ref("tododata/" + target+'/complated').set(false);
-                }else{
-                    firebasedb.ref("tododata/" + target+'/complated').set(true);
-                }
-            });
             
+            firebasedb
+                .ref("tododata/" + target + '/complated')
+                .once('value', function (snapshot) {
+                    console.log('status:' + snapshot.val());
+
+                    if (snapshot.val()) {
+                        firebasedb
+                            .ref("tododata/" + target + '/complated')
+                            .set(false);
+                    } else {
+                        firebasedb
+                            .ref("tododata/" + target + '/complated')
+                            .set(true);
+                    }
+
+                });
+            /*
+            firebasedb
+                .ref("tododata")
+                .once('value', function (datacontent) {
+                    this.todoitem = datacontent.val();
+                });*/
+
         }
     },
     mounted: function () { //初始執行的程式 也可以縮寫成mounted() {} mounted英文翻譯 已安裝
@@ -87,75 +103,80 @@ var vue_todolist = new Vue({
             .on('value', function (datacontent) {
                 this_vue.todoitem = datacontent.val();
             });
-            console.log('mounted');
+        console.log('mounted');
     },
-    created:function(){
+    created: function () {
         console.log('created');
     },
-    computed: {//computed 比較像一個監聽動態的執行函式,如果有觸擊的事件的話不必用這個,使用methods 會比較恰當,另外我們還有一個物件叫做watch,另外在做比較
-        reversetext: function(){
+    computed: { //computed 比較像一個監聽動態的執行函式,如果有觸擊的事件的話不必用這個,使用methods 會比較恰當,另外我們還有一個物件叫做watch,另外在做比較
+        reversetext: function () {
             console.log('reversetext');
-            return this.todoinput.split('').reverse().join('');
+            return this
+                .todoinput
+                .split('')
+                .reverse()
+                .join('');
         },
-        filtertodo:function(){
-            
-            if(this.listfilter=='active'){
+        filtertodo: function () {
+
+            if (this.listfilter == 'active') {
                 console.log('active');
-                var filter_data=new Object();
-                for(var item in this.todoitem) { 
-                    if(this.todoitem[item].complated==false){
-                        filter_data[item] = this.todoitem[item]; 
+                var filter_data = new Object();
+
+                for (var item in this.todoitem) {
+                    if (this.todoitem[item].complated == false) {
+                        filter_data[item] = this.todoitem[item];
                     }
                 }
                 console.log(filter_data);
                 return filter_data;
-            }else if(this.listfilter=='complated'){
+
+            } else if (this.listfilter == 'complated') {
                 console.log('complated');
-                var filter_data=new Object();
-                for(var item in this.todoitem) { 
-                    if(this.todoitem[item].complated==true){
-                        filter_data[item] = this.todoitem[item]; 
+
+                var filter_data = new Object();
+
+                for (var item in this.todoitem) {
+                    if (this.todoitem[item].complated == true) {
+                        filter_data[item] = this.todoitem[item]; //設定物件名稱  以前適用filter_data.設定的名稱
                     }
                 }
                 console.log(filter_data);
                 return filter_data;
-            }else{
+            } else {
                 console.log('all');
                 return this.todoitem
             }
         }
 
-    },
+    }
 });
 
-Vue.component('counter-component',{
-    data: function(){
-        return{
-            counter: 0
-        }
+Vue.component('counter-component', {
+    data: function () {
+        return {counter: 0}
     },
-    template:'<div class="counter"> <button @click="counter +=1" class="btn btn-sm">{{counter}}</button></div>'
+    template: '<div class="counter"> <button @click="counter +=1" class="btn btn-sm">{{counte' +
+            'r}}</button></div>'
 });
 
-var counter_component=new Vue({
+var counter_component = new Vue({
     el: '#counter_demo',
-    data:{
+    data: {
         counter: 0
     }
 });
 
-
-
-/*
-Methods 與 Computed 的使用情境
+/* Methods 與 Computed 的使用情境
 - computed 是在監控資料更動後，重新運算結果呈現於畫面上
-一般來說不會修改資料，只會回傳用於畫面呈現的資料
+ * 一般來說不會修改資料，只會回傳用於畫面呈現的資料
 
 - methods 就是互動的函式，需要觸發才會運作
 會用來修改資料內容
 
 效能
-如果資料量大，computed 自然會比較慢
+ * 如果資料量大，computed 自然會比較慢
 只要資料變動就會觸發，無形之中執行次數也會增加勒
-因此在大量資料時，會建議透過 methods 減少不必要的運算喔
-*/
+因此在大量資料時，會建議透過 methods
+ * 減少不必要的運算喔
+ */

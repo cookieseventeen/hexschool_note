@@ -110,9 +110,9 @@
                         
                         <li class="list-group-item" v-for="(todoitems,key,index) in filtertodo">
                             <div class="d-flex" >
-                                <div class="form-check"><!-- v-on:跟 ＠: 是相同的  只是一個是縮寫  v-model="todoitems.complated" -->
-                                    <input type="checkbox" class="form-check-input"  v-model="todoitems.complated" v-on:click="complated_target(key)" :id="key">
-                                    <label class="form-check-label" :class="{'completed':todoitems.complated}" :for="key">
+                                <div class="form-check"><!-- v-on:跟 ＠: 是相同的  只是一個是縮寫  v-model="todoitems.complated":id="key" :for="key" -->
+                                    <input type="checkbox" class="form-check-input"  :checked="todoitems.complated" v-on:click="complated_target(key)"  >
+                                    <label class="form-check-label" :class="{'completed':todoitems.complated}" v-on:click="complated_target(key)" >
                                             {{todoitems.content}}                                       
                                     </label>
                                 </div>
