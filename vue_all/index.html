@@ -108,15 +108,14 @@
                     </div>
                     <ul class="list-group list-group-flush text-left">
                         
-                        <li class="list-group-item" v-for="(todoitems,key,index) in filtertodo">
-                            <div class="d-flex" >
-                                <div class="form-check"><!-- v-on:跟 ＠: 是相同的  只是一個是縮寫  v-model="todoitems.complated":id="key" :for="key" -->
+                        <li class="list-group-item" v-for="(todoitems,key,index) in filtertodo" :class="{'editthis': cachetodo == key}" @dblclick="edittodo(key,todoitems.content)">
+                            <div class="d-flex todo-content" >
+                                <div class="form-check"><!-- v-on:跟 ＠ 是相同的  只是一個是縮寫  v-model="todoitems.complated":id="key" :for="key" -->
                                     <input type="checkbox" class="form-check-input"  :checked="todoitems.complated" v-on:click="complated_target(key)"  >
                                     <label class="form-check-label" :class="{'completed':todoitems.complated}" v-on:click="complated_target(key)" >
                                             {{todoitems.content}}                                       
                                     </label>
                                 </div>
-                                 
                                 <button
                                     type="button"
                                     class="close ml-auto"
@@ -128,15 +127,16 @@
                                 </button>
                                 
                             </div>
+                            <div class="d-flex edit-content">
+                                <input type="text" @keyup.esc="leaveedit" v-model="cachetodocontent" @keyup.enter="updatetodo()" class="form-control">
+                            </div>
+                            
                         </li>
-                    
-                        <li class="list-group-item">
-                            <input type="text" class="form-control">
-                        </li>
+                     
                     </ul>
                     <div class="card-footer d-flex justify-content-between">
-                        <span>還有 3 筆任務未完成</span>
-                        <a href="#">清除所有任務</a>
+                        <span>還有 {{countercomplete}} 筆任務未完成</span>
+                        <a href="#" @click="clear()">清除所有任務</a>
                     </div>
                 </div>
                 <pre>
@@ -149,6 +149,15 @@
             <counter-component></counter-component>
             <counter-component></counter-component>
         </div>
+
+        <div id="toogle_demo">
+            <a href="#test" @click="toogleclassswitch = !toogleclassswitch">Test</a>
+            <div class="toogle_class_demo" :class="{ 'rotateopen': toogleclassswitch}">
+
+            </div>
+        </div>
+        
+
 
         <!-- Insert these scripts at the bottom of the HTML, but before you use any
         Firebase services -->
@@ -168,6 +177,26 @@
         <style>
             .completed{
                 text-decoration: line-through;
+            }
+            .toogle_class_demo{
+                width: 100px;
+                height: 100px;
+                background: #ccc; 
+                transform: rotate(0deg);
+                transition: all 0.8s ease;
+
+            }
+            .rotateopen{
+                transform: rotate(90deg);
+            }
+            .edit-content{
+                display: none!important;
+            }
+            .editthis .todo-content{
+                display: none!important;
+            }
+            .editthis .edit-content{
+                display: flex!important;
             }
         </style>
     </body>

@@ -29,7 +29,9 @@ var vue_todolist = new Vue({
         //resultoutput: '',
         degree: '1',
         executor: 'Ben',
-        listfilter: 'all'
+        listfilter: 'all',
+        cachetodo:'',
+        cachetodocontent:''
     },
     methods: { //用來定義Ｖue 實體內使用的函數
         addlist: function (tododata) {
@@ -94,6 +96,23 @@ var vue_todolist = new Vue({
                     this.todoitem = datacontent.val();
                 });*/
 
+        },
+        edittodo: function(target,content){
+            this.cachetodo=target;
+            this.cachetodocontent=content;
+        },
+        leaveedit: function(){
+            console.log();
+            this.cachetodo='';
+            this.cachetodocontent='';
+        },
+        updatetodo:function(){
+            firebasedb.ref("tododata/" + this.cachetodo + '/content').set(this.cachetodocontent);
+            this.cachetodo='';
+            this.cachetodocontent='';
+        },
+        clear:function(){
+            firebasedb.ref("tododata/").set('');
         }
     },
     mounted: function () { //初始執行的程式 也可以縮寫成mounted() {} mounted英文翻譯 已安裝
@@ -147,6 +166,17 @@ var vue_todolist = new Vue({
                 console.log('all');
                 return this.todoitem
             }
+        },
+        countercomplete:function(){
+            var counter=0;
+
+            for (var item in this.todoitem) {
+                if (this.todoitem[item].complated == true) {
+                    counter++
+                }
+            }
+            console.log(counter);
+            return counter
         }
 
     }
@@ -166,6 +196,13 @@ var counter_component = new Vue({
         counter: 0
     }
 });
+
+var toogledemo=new Vue({
+    el: '#toogle_demo',
+    data:{
+        toogleclassswitch: false,
+    }
+})
 
 /* Methods 與 Computed 的使用情境
 - computed 是在監控資料更動後，重新運算結果呈現於畫面上
