@@ -5,8 +5,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
         <link
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -34,11 +40,305 @@
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
         <!-- <link rel="stylesheet" href="css/main.css"> -->
         <title>第四章 進階模板的介紹</title>
-       
+
     </head>
 
     <body>
-       
+        <div id="vue_template_demo">
+            <section>
+                <div class="container">
+                    <h2>第一小段 v-model="" </h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="demotext">請輸入文字</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="firstName"
+                                placeholder="請輸入測試文字"
+                                value=""
+                                required=""
+                                v-model="vmodetext">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            您輸入的文字為：{{ vmodetext }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <h2>v-html 實作</h2>
+                    <div class="description">
+                        v-html 不建議在input 的時候使用,避免xxs 攻擊.
+                        <br>
+                        注意XSS攻擊
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">有用vhtml 呈現的時候：</div>
+                            <div v-html="vhtmldemo" class="hasvhtml"></div>
+                            <br>
+                            <br>
+                            <div>
+                                沒有html的時候 直接列印出來
+                            </div>
+                            {{vhtmldemo}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h2>用v-text 綁定一次的範例</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="vonce-vtext" v-text="voncedata" v-once="v-once"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h2>輸出的表達式</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ voncedata + voncedata }}
+                            {{ voncedata + vmodetext }}
+                        </div>
+                        <div class="col-md-12">
+                            <div>表達是反轉文字</div>
+                            {{ voncedata.split('').reverse().join('') }}
+                            <div>數字相加</div>
+                            {{ nember_1 + nember_2 }}
+                            <div>數字相乘</div>
+                            {{ nember_1 * nember_2}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h2>有無縮寫的vbind</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>v-bind</div>
+                            <br>
+                            <p :class="bindid">
+                                縮寫的v-bind
+                            </p>
+                            <p v-bind:class="bindid">
+                                沒有縮寫的v-bind
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" :disabled="disabledswitch">
+                            <button @click="disabledswitch=!disabledswitch">切換input disable</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h2>綁定class的各種方式</h2>
+                    <div>
+                        <ul>
+                            <li>一般可以綁定的方式</li>
+                            <li>透過物件的方式綁定class</li>
+                            <li>透過陣列的方式</li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">一般可以綁定的方式</div>
+                            <div
+                                class="demosquare"
+                                :class="{'rotate':objclass.rotate,'background-danger':objclass['background-danger']}"></div>
+                            <br>
+                            <div>使用物件綁定的方式,物件名稱如果有dash 例如background-danger 物件名稱就不能 物件.background-danger,必須使用
+                                物件['background-danger']</div>
+                            <div class="demosquare" :class="objclass"></div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <button @click="objclass.rotate= !objclass.rotate">切換旋轉</button>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="swich_color">切換背景</label>
+                            <input
+                                id="swich_color"
+                                name="swich_color"
+                                type="checkbox"
+                                v-model="objclass['background-danger']">
+                        </div>
+                        <div class="col-md-12">
+
+                            <div>使用陣列的方式</div>
+                            <div class="description">
+                                使用陣列的方式,利用checkbox 的ture 或false 去判斷 value 裡面的值要不要連動到Vue data 裡面的陣列.
+                            </div>
+                            <div class="demosquare" :class="arrayclass"></div>
+                            <label for="rotateid">border</label>
+                            <input id="rotateid" type="checkbox" v-model="arrayclass" value="rotate">
+
+                            <label for="danger-background">background-switch</label>
+                            <input
+                                id="danger-background"
+                                type="checkbox"
+                                v-model="arrayclass"
+                                value="background-danger">
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div>行內css的綁定樣式 第一種</div>
+                            <div class="description">
+                                :style="{"屬性的樣式"："屬性的值"}"
+                                特別要注意到 backgroundColor 在css 中他的寫法是 background-color,但在Vue裡面是要去掉dash並把color的第一個字母改大寫.
+                            </div>
+                            <div class="demosquare" :style="{'backgroundColor':'red'}"></div>
+                            <br>
+                            <div>行內css的綁定樣式 第二種</div>
+                            <div class="description">
+                                這裡直接將各種css style 寫成物件放在v-bind 裡面
+                            </div>
+                            <div class="demosquare" :style="inlinecssdemo"></div>
+                            <br>
+                            <div>行內css的綁定樣式 第三種</div>
+                            <div class="description">
+                                透過陣列放入其他宣告為物件的css 屬性
+                            </div>
+                            <div class="demosquare" :style="[inlinecssdemo, inlinecssdemo2]"></div>
+
+                            <div>prefix</div>
+                            <div class="description">
+                                prefix 不需要手動家哦,像jQuery ㄧ樣,Ｖue會針對各瀏覽器
+                            </div>
+                            <div class="demosquare" :style="{'transform':'rotate(45deg)'}"></div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>V-for運用的注意</h2>
+                            <div class="description">
+                                1.v-for 我自己要特別注意的事情是,v-for 要下在哪裡,通常之前用其他原生的寫法,不會直接下在item上面,而是在外面寫一個for迴圈或者是while 將內容列印出來,
+                                在vue 裡面你是要直接下在你要項目上<br>
+
+                                2.這邊範例有用到reverse array,特別注意obj是不能直接使用的,會出現錯誤<br>
+
+                                3.這邊的範例有設定到input ,當我在反轉整個陣列的時候,其實input 是不會跟著反轉的,因為Vue是局部更換的,綁定key可以解決這個問題,這邊是直接帶入項目名稱
+                                
+                                4.補充用使用元件的方式列出list-item 搭配 v-for 做範例,這邊還捕捉到一個重點,如果你想使用元件的話,必須先宣告好元件,在宣告vue的使用<br>
+
+                                5.元件props 用法可以參考https://cythilya.github.io/2017/05/16/vue-component-prop/
+
+                            </div>
+                            <div class="demo-list">
+                                <list-item v-for="(item,key,index) in arrayvuefordemo" :item="item" :key="item.name"></list-item>
+                            </div>
+                            <div class="demo-list">
+                                <div class="item" v-for="(item,key,index) in arrayvuefordemo"  :key="item.name">
+                                        {{item.name}} 的歲數為 {{item.age}} - {{key}} <input type="text">
+                                </div>
+                            </div>
+                            <button class="reverse" @click="reverseObj">反轉陣列</button>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>在v-for中使用過濾功能</h2>
+                            <div class="description">
+                                1.原本不解為什麼要特別弄一個this,出來,後來才發現,如果你有其他或函式可能也會用到this,那先宣告一個this就很重要;<br>
+
+                                2.這裡介紹的filter的用法 主要有提到如果filter function 裡面回傳ture,他就會將這次比對的項目塞回去你所宣告得值,這邊利用match 去比對塞選的字串是否依樣,透過return match 的方式回傳要不要將項目塞回去陣列.
+                            </div>
+                            <div class="demo-list">
+                                    <input type="text" class="form-control" v-model="filtertext" @keyup.enter="filterdata()">
+                                    <div class="item" v-for="(item,key,index) in filterarray"  :key="item.name">
+                                            {{item.name}} 的歲數為 {{item.age}} - {{key}} <input type="text">
+                                    </div>
+                                </div>
+                                <br>
+                            <div class="description">
+                                    //如果你直接更改陣列裡面的物件,其實他是可以直接更新資料的,包含前端的輸出
+                                    //可是如果你是更改物件,他其實是不會動作的,必續透過set 才會重新渲染資料.
+                                    
+                            </div>
+                                <button class="canworkbtn" @click="cantwork">Can't work</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2> 其他 v-for 的運用</h2>
+                            <div class="description">
+                                例如使用v-for 列印出1到 10
+                            </div>
+                            <div class="number list" v-for="item in 10">
+                                    <div class="number list" v-for="secondnum in 10">
+                                        {{item}}*{{secondnum}}={{item*secondnum}}
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="js/all.js"></script>
+        <style>
+            section {
+                border: 1px solid #CCC;
+                padding: 4em;
+            }
+            section {
+                margin-top: 36px;
+            }
+            .thisisvbind {
+                color: rgb(7, 127, 255);
+            }
+            .demosquare {
+                width: 50px;
+                height: 50px;
+                border: 1px solid #000;
+                background: #CCC;
+                transition: all 0.6s ease;
+            }
+            .demosquare.rotate {
+                transform: rotate(45deg);
+            }
+            .demosquare.background-danger {
+                background: red;
+            }
+        </style>
     </body>
 
 </html>
