@@ -47,7 +47,8 @@
         <div id="vue_template_demo">
             <section>
                 <div class="container">
-                    <h2>第一小段 v-model="" </h2>
+                    <h2>第一小段 v-model=""
+                    </h2>
                     <div class="row">
                         <div class="col-md-12">
                             <label for="demotext">請輸入文字</label>
@@ -199,12 +200,11 @@
                                 value="background-danger">
                         </div>
 
-
                         <div class="col-md-12">
                             <div>行內css的綁定樣式 第一種</div>
                             <div class="description">
-                                :style="{"屬性的樣式"："屬性的值"}"
-                                特別要注意到 backgroundColor 在css 中他的寫法是 background-color,但在Vue裡面是要去掉dash並把color的第一個字母改大寫.
+                                :style="{"屬性的樣式"："屬性的值"}" 特別要注意到 backgroundColor 在css 中他的寫法是
+                                background-color,但在Vue裡面是要去掉dash並把color的第一個字母改大寫.
                             </div>
                             <div class="demosquare" :style="{'backgroundColor':'red'}"></div>
                             <br>
@@ -241,24 +241,32 @@
                         <div class="col-md-12">
                             <h2>V-for運用的注意</h2>
                             <div class="description">
-                                1.v-for 我自己要特別注意的事情是,v-for 要下在哪裡,通常之前用其他原生的寫法,不會直接下在item上面,而是在外面寫一個for迴圈或者是while 將內容列印出來,
-                                在vue 裡面你是要直接下在你要項目上<br>
+                                1.v-for 我自己要特別注意的事情是,v-for 要下在哪裡,通常之前用其他原生的寫法,不會直接下在item上面,而是在外面寫一個for迴圈或者是while
+                                將內容列印出來, 在vue 裡面你是要直接下在你要項目上<br>
 
                                 2.這邊範例有用到reverse array,特別注意obj是不能直接使用的,會出現錯誤<br>
 
-                                3.這邊的範例有設定到input ,當我在反轉整個陣列的時候,其實input 是不會跟著反轉的,因為Vue是局部更換的,綁定key可以解決這個問題,這邊是直接帶入項目名稱
-                                
-                                4.補充用使用元件的方式列出list-item 搭配 v-for 做範例,這邊還捕捉到一個重點,如果你想使用元件的話,必須先宣告好元件,在宣告vue的使用<br>
+                                3.這邊的範例有設定到input ,當我在反轉整個陣列的時候,其實input
+                                是不會跟著反轉的,因為Vue是局部更換的,綁定key可以解決這個問題,這邊是直接帶入項目名稱 4.補充用使用元件的方式列出list-item 搭配 v-for
+                                做範例,這邊還捕捉到一個重點,如果你想使用元件的話,必須先宣告好元件,在宣告vue的使用<br>
 
                                 5.元件props 用法可以參考https://cythilya.github.io/2017/05/16/vue-component-prop/
 
                             </div>
                             <div class="demo-list">
-                                <list-item v-for="(item,key,index) in arrayvuefordemo" :item="item" :key="item.name"></list-item>
+                                <list-item
+                                    v-for="(item,key,index) in arrayvuefordemo"
+                                    :item="item"
+                                    :key="item.name"></list-item>
                             </div>
                             <div class="demo-list">
-                                <div class="item" v-for="(item,key,index) in arrayvuefordemo"  :key="item.name">
-                                        {{item.name}} 的歲數為 {{item.age}} - {{key}} <input type="text">
+                                <div class="item" v-for="(item,key,index) in arrayvuefordemo" :key="item.name">
+                                    {{item.name}}
+                                    的歲數為
+                                    {{item.age}}
+                                    -
+                                    {{key}}
+                                    <input type="text">
                                 </div>
                             </div>
                             <button class="reverse" @click="reverseObj">反轉陣列</button>
@@ -276,21 +284,30 @@
                             <div class="description">
                                 1.原本不解為什麼要特別弄一個this,出來,後來才發現,如果你有其他或函式可能也會用到this,那先宣告一個this就很重要;<br>
 
-                                2.這裡介紹的filter的用法 主要有提到如果filter function 裡面回傳ture,他就會將這次比對的項目塞回去你所宣告得值,這邊利用match 去比對塞選的字串是否依樣,透過return match 的方式回傳要不要將項目塞回去陣列.
+                                2.這裡介紹的filter的用法 主要有提到如果filter function 裡面回傳ture,他就會將這次比對的項目塞回去你所宣告得值,這邊利用match
+                                去比對塞選的字串是否依樣,透過return match 的方式回傳要不要將項目塞回去陣列.
                             </div>
                             <div class="demo-list">
-                                    <input type="text" class="form-control" v-model="filtertext" @keyup.enter="filterdata()">
-                                    <div class="item" v-for="(item,key,index) in filterarray"  :key="item.name">
-                                            {{item.name}} 的歲數為 {{item.age}} - {{key}} <input type="text">
-                                    </div>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    v-model="filtertext"
+                                    @keyup.enter="filterdata()">
+                                <div class="item" v-for="(item,key,index) in filterarray" :key="item.name">
+                                    {{item.name}}
+                                    的歲數為
+                                    {{item.age}}
+                                    -
+                                    {{key}}
+                                    <input type="text">
                                 </div>
-                                <br>
-                            <div class="description">
-                                    //如果你直接更改陣列裡面的物件,其實他是可以直接更新資料的,包含前端的輸出
-                                    //可是如果你是更改物件,他其實是不會動作的,必續透過set 才會重新渲染資料.
-                                    
                             </div>
-                                <button class="canworkbtn" @click="cantwork">Can't work</button>
+                            <br>
+                            <div class="description">
+                                //如果你直接更改陣列裡面的物件,其實他是可以直接更新資料的,包含前端的輸出 //可是如果你是更改物件,他其實是不會動作的,必續透過set 才會重新渲染資料.
+
+                            </div>
+                            <button class="canworkbtn" @click="cantwork">Can't work</button>
                         </div>
                     </div>
                 </div>
@@ -299,15 +316,189 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2> 其他 v-for 的運用</h2>
+                            <h2>
+                                其他 v-for 的運用</h2>
                             <div class="description">
                                 例如使用v-for 列印出1到 10
                             </div>
-                            <div class="number list" v-for="item in 10">
+                            <div class="row">
+                                <div class="number list col-md-1" v-for="item in 10">
                                     <div class="number list" v-for="secondnum in 10">
                                         {{item}}*{{secondnum}}={{item*secondnum}}
                                     </div>
+                                </div>
                             </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-md-12">
+                    <h2>Template 的運用</h2>
+                    <div class="description">
+                        這邊可以看到Template 的運用,tr如果要同時列出兩個,就必須靠template去解決,原本的v-for 只能列印出單個元素
+                    </div>
+                    <table class="table">
+                        <template v-for="(item,key,index) in arrayvuefordemo">
+                            <tr>
+                                <td>姓名：{{item.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>年齡：{{item.age}}
+                                </td>
+                            </tr>
+                        </template>
+                    </table>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-md-12">
+                    <h2>Template 的運用</h2>
+                    <div class="description">
+                        這邊可以看到Template 的運用,tr如果要同時列出兩個,就必須靠template去解決,原本的v-for 只能列印出單個元素
+                    </div>
+                    <table class="table">
+                        <template v-for="(item,key,index) in arrayvuefordemo">
+                            <tr>
+                                <td>姓名：{{item.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>年齡：{{item.age}}
+                                </td>
+                            </tr>
+                        </template>
+                    </table>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-md-12">
+                    <h2>v-for 跟 v-if 所結合的運用</h2>
+                    <div class="description">
+                        原本用v-for 在過去如果要做filter,可能會寫一個computed取重新把值列印出來,這邊提供一個範例來做一個內容,其中還有提到如果兩樣同時存在的時候
+                        會先做v-for再做v-if
+                    </div>
+                    <table class="table">
+                        <template v-for="(item,key,index) in arrayvuefordemo" v-if="item.age >= 33">
+                            <tr>
+                                <td>姓名：{{item.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>年齡：{{item.age}}
+                                </td>
+                            </tr>
+                        </template>
+                    </table>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-md-12">
+                    <h2>v-for 與元件的配合</h2>
+                    <div class="description">
+                        原本我會將v-for裡面的item 跟props 的item搞混,透過不同的名稱命名,讓差別顯示出來,模板與元件的關係,需要再更透徹出來. 如果要帶入key得值
+                        不必透過props,直接在元件上面綁定就好,綁定key 必須養成習慣
+                    </div>
+                    <ul>
+                        <list-item
+                            :item="listitem"
+                            :key="listitem.name + listitem.age"
+                            v-for="(listitem,key,index) in arrayvuefordemo"></list-item>
+                    </ul>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-md-12">
+                    <h2>v-if 模板判斷</h2>
+                    <div class="description">
+                        這邊可以看到有很多種v-if 的方式 v-if="isSuccess" v-if="isSuccess==true"
+                        v-if="isSuccess==false" v-if="!isSuccess" of v-else
+                    </div>
+                    <div class="success-area" v-if="isSuccess">
+                        成功
+                    </div>
+                    <div class="fail-area" v-else="v-else">
+                        失敗v-esle 必須相鄰 才可以用else
+                    </div>
+                    <div class="fail-area" v-if="isSuccess == false">
+                        失敗isSuccess == false
+                    </div>
+                    <div class="fail-area" v-if="!isSuccess">
+                        失敗!isSuccess
+                    </div>
+
+                    <div class="form-check">
+                        <label for="issuccess">issuccess 切換</label>
+                        <input id="issuccess" type="checkbox" v-model="isSuccess">
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="description">
+                    利用v-if 做欄位隱藏顯示的切換 {active : link == 'a'} 到這邊有點忘記了,需要再複習一下
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="＃a" :class="{active : link == 'a'}" @click.prevent="link = 'a'">aaaaa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="＃b" :class="{active : link == 'b'}" @click.prevent="link = 'b'">bbbb</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="＃c" :class="{active : link == 'c'}" @click.prevent="link = 'c'">ccccc</a>
+                    </li>
+                </ul>
+                <div class="content">
+                    <div class="item-content" v-if="link == 'a'">
+                        aaaa
+                    </div>
+                    <div class="item-content" v-else-if="link == 'b'">
+                        bbbb
+                    </div>
+                    <div class="item-content" v-else-if="link == 'c'">
+                        cccc
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>利用v-if 控制template</h2>
+                <div class="description">
+                    這邊再次強調綁定key的重要性,如果沒有綁定key,以下面的例子來說,input 得直就會保留, 特別注意 我在這邊把key 綁在template 上
+                    是沒有反應的,必須綁在input,不知道為什麼,我在綁定key的時候只要使用字元,就無效
+                </div>
+                <template v-if="logintype === 'username'">
+                    <label for="username">username</label>
+                    <input id="username" type="text" :key="1">
+                </template>
+                <template v-else="v-else">
+                    <label for="email">email</label>
+                    <input id="email" type="text" :key="2">
+                </template>
+
+                <a href="#switch" @click.prevent="togglelogintype">切換</a>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>v-if與v-show的差別
+                        </h2>
+                        <div class="description">
+                            這個範例可以看到 show 是用display none 和 display
+                            block,去控制隱藏與否,可是如果是v-if就是整個ＤＯＭ的存在或不存在做開關,可以特別注意,這個些微的差別
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="success-area" v-show="isSuccess">
+                            成功
+                        </div>
+                        <div class="fail-area" v-show="!isSuccess">
+                            失敗
+                        </div>
+                        <div class="form-check">
+                            <label for="issuccess">issuccess 切換</label>
+                            <input id="issuccess" type="checkbox" v-model="isSuccess">
                         </div>
                     </div>
                 </div>
@@ -337,6 +528,10 @@
             }
             .demosquare.background-danger {
                 background: red;
+            }
+            .active {
+                font-weight: bold;
+                color: #000;
             }
         </style>
     </body>

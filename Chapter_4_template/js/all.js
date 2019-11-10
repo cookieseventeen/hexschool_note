@@ -3,7 +3,7 @@ Vue.component('list-item', {
         return {counter: 0}
     },
     template: `<li >
-        {{item.name}} {{item.age}} 歲 <input></input>
+       {{item.name}} {{item.age}} 歲 <input></input>
     </li>`,
     props:['item']
 });
@@ -36,24 +36,28 @@ var vue_todolist = new Vue({
         vuefordemo: {
             Ben: {
                 name: '班',
-                age: '32歲'
+                age: '32'
             },
             Mary: {
                 name: '馬力',
-                age: '33歲'
+                age: '33'
             }
         },
         arrayvuefordemo: [
             {
                 name: '班',
-                age: '32歲'
+                age: '32'
             }, {
                 name: '馬力',
-                age: '33歲'
+                age: '33'
             }
 
         ],
         filterarray:[],
+        isSuccess:true,
+        showtemplate:true,
+        link: 'a',
+        logintype:'username'
     },
     methods: {
         reverseObj: function () {
@@ -96,6 +100,9 @@ var vue_todolist = new Vue({
                 age: '100歲'
             });
 
+        },
+        togglelogintype:function(){
+            this.logintype=='username'?this.logintype='email':this.logintype='username';
         }
     },
     mounted: function () {
