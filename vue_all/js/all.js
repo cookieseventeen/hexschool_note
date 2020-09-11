@@ -171,7 +171,7 @@ var vue_todolist = new Vue({
             var counter=0;
 
             for (var item in this.todoitem) {
-                if (this.todoitem[item].complated == true) {
+                if (this.todoitem[item].complated == false) {
                     counter++
                 }
             }
